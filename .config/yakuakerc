@@ -1,0 +1,24 @@
+[Animation]
+Frames=20
+
+[Appearance]
+BackgroundColorOpacity=80
+HideSkinBorders=true
+Skin=breeze_v2
+SkinInstalledWithKns=true
+
+[Behavior]
+FocusFollowsMouse=false
+RememberFullscreen=true
+
+[Dialogs]
+FirstRun=false
+
+[KFileDialog Settings]
+iconViewIconSize=64
+
+[Window]
+DynamicTabTitles=true
+Height=60
+ShowTitleBar=false
+Width=100

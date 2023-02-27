@@ -1,0 +1,71 @@
+MenuBar=Disabled
+
+[CompactMode]
+FontWeight=50
+PreviewSize=22
+
+[ContextMenu]
+ShowCopyMoveMenu=true
+ShowViewMode=false
+
+[DetailsMode]
+FontWeight=50
+PreviewSize=32
+
+[ExtractDialog]
+eDP-1 Height 1536x864=560
+eDP-1 Width 1536x864=1024
+
+[General]
+GlobalViewProps=false
+ShowFullPath=true
+ShowToolTips=true
+ShowZoomSlider=false
+UseTabForSwitchingSplitView=true
+Version=201
+ViewPropsTimestamp=2022,1,16,2,4,56.761
+
+[IconsMode]
+FontWeight=50
+MaximumTextLines=2
+PreviewSize=48
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=16
+iconViewIconSize=64
+
+[KPropertiesDialog]
+eDP-1 Height 1536x864=616
+eDP-1 Height 1617x909=603
+eDP-1 Height 1920x1080=668
+eDP-1 Width 1536x864=465
+eDP-1 Width 1617x909=438
+eDP-1 Width 1920x1080=551
+
+[MainWindow]
+MenuBar=Disabled
+ToolBarsMovable=Disabled
+eDP-1 Height 1536x864=462
+eDP-1 Width 1536x864=652
+eDP-1 XPosition 1536x864=446
+eDP-1 XPosition 1920x1080=544
+eDP-1 YPosition 1536x864=194
+eDP-1 YPosition 1920x1080=223
+
+[Open-with settings]
+CompletionMode=1
+History=smp,smplay,gwe,kwri,figma,edge,dol,gwen,disco,snap,per,perse,unrar,goo,vlc
+
+[PlacesPanel]
+IconSize=16
+
+[PreviewSettings]
+Plugins=appimagethumbnail,audiothumbnail,blenderthumbnail,comicbookthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,gsthumbnail,rawthumbnail,svgthumbnail,textthumbnail,ffmpegthumbs
+
+[ViewPropertiesDialog]
+eDP-1 Height 1536x864=744
+eDP-1 Width 1536x864=403
+
+[kuick-copy]
+Paths[$e]=$HOME/Desktop/

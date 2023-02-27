@@ -1,0 +1,5 @@
+microsoft-edge-stable
+microsoft-edge-beta
+google-chrome-stable
+upwork
+stretchly # via lastversion

@@ -1,0 +1,8 @@
+[user]
+	email = r0mankon.me@gmail.com
+	name = r0mankon
+[init]
+	defaultBranch = main
+[core]
+	autocrlf = input
+   safecrlf = false

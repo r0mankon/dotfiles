@@ -1,0 +1,18 @@
+snap install snap-store --classic &
+snap install code --classic &
+snap install gh --classic &
+snap install spotify --classic &
+snap install standard-notes --classic &
+snap install postman --classic &
+snap install android-studio --classic &
+snap install figma-linux --edge --classic &
+snap install gimp --classic &
+snap install blender --classic &
+snap install authy &
+snap install mailspring &
+snap install scrcpy &
+snap install gifski &
+snap install telegram-desktop &
+snap install youtube-dl &
+snap install bombsquad &
+snap install smplayer --classic &
