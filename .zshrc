@@ -1,3 +1,4 @@
+neofetch -L
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -45,7 +46,6 @@ HIST_STAMPS="dd/mm/yyyy"
 plugins=(
     git
     npm
-    zoxide
     colorize
     cp
     safe-paste
@@ -68,26 +68,42 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR='vim'
 else
-    export EDITOR='mvim'
+    export EDITOR='nvim'
 fi
 
 # For a full list of active aliases, run `alias`.
 
-# to make sure they're not overridden by anyone else
-source $HOME/.dotfiles/alias
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-eval "$(zoxide init zsh)"
-
-auto-ls-ll () {
-    ll
-}
-
-auto-ls-git-remote () {
-    git remote -v
-}
-
-AUTO_LS_COMMANDS=(ll git-remote)
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 source ~/.oh-my-zsh/custom/plugins/auto-ls.zsh
+
+# nvm auto use
+autoload -U add-zsh-hook
+
+load-nvmrc() {
+  local nvmrc_path
+  nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version
+    nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
+      nvm use
+    fi
+  elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+# nvm auto use
+
+# alias must at the end, to make sure they're not overridden by anyone else, I'm talking about plugins of course
+source $HOME/.dotfiles/alias

@@ -9,8 +9,9 @@ cp ./.zshrc ~/.zshrc
 cat ./.profile >> ~/.profile
 cat ./.profile >> ~/.zprofile
 cat ./.profile >> ~/.zshenv
+
+mkdir ~/.config/nvim
 echo "source ~/.dotfiles/nvim/init.vim" > ~/.config/nvim/init.vim
-echo "skip_global_compinit=1" >> ~/.zshenv
 
 # System tweaks
 echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf

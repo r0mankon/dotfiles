@@ -1,14 +1,24 @@
-#export PATH="$HOME/bin/**/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:$HOME/bin/**/bin
 export ANDROID_HOME=$HOME/Android/Sdk
 export JAVA_HOME=$HOME/Android/Sdk/cmdline-tools/latest/bin
-#export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
-export PATH=$PATH:$HOME/.yarn/bin/yarn
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="/home/rokon/.local/share/fnm:$PATH"
-eval "$(fnm env --use-on-cd)"
+
+export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools
+
+#export PATH=$PATH:$HOME/.yarn/bin/yarn
+#export PATH="$HOME/.local/share/fnm:$PATH"
+
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=/Users/r0mankon/Library/Python/3.11/lib/python/site-packages/:$PATH
+export PATH=/Users/r0mankon/Library/Python/3.11/bin/:$PATH
+
+eval "$(/usr/local/bin/brew shellenv)"
+#eval "$(fnm env --use-on-cd)"
+eval "$(zoxide init zsh)"
+source /opt/local/share/nvm/init-nvm.sh
+
+export HOMEBREW_UPDATE_PREINSTALL=0

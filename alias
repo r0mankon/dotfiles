@@ -1,14 +1,22 @@
+alias cd='z'
 alias pro='cd ~/workSpace/projects'
 alias ls='exa --icons --group-directories-first'
 alias ll='ls -lh --octal-permissions --git'
 alias la='ll -a'
 alias lr='ll -R'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
 alias rm='rm -iv'
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias vim='nvim'
 alias cal='gcal --starting-day=1'
 alias weather='curl v2.wttr.in'
+
+auto-ls-ll () {
+    ll
+}
+
+auto-ls-git () {
+  test -e ".git/" && onefetch --no-palette
+}
+
+AUTO_LS_COMMANDS=(ll git)
