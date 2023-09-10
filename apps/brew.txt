@@ -6,7 +6,6 @@ qlimagesize
 maccy
 gh
 onefetch
-fnm
 visual-studio-code
 spotify
 lyricsx
