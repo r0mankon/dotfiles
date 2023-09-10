@@ -1,18 +1,22 @@
 # Steps
 
-`git clone https://github.com/r0mankon/dotfiles ~/.dotfiles`
+`git clone git@github.com:r0mankon/dotfiles.git ~/.dotfiles`
 
 `cd ~/.dotfiles`
 
-`./setup.[linux/mac].sh`
+## Linux
+`./setup.linux.sh`
+
+### With KDE specific fixes and packages
+`./setup.linux-kde.sh`
+
+## MacOS
+
+`./setup.mac.sh`
 
 # Notes
 
-Most of the things are automated except for deb & appImage packages which are supposed to be downloaded manually from the respective site.
-
-#### Delete or comment out the following line in `setup.sh` if not on KDE
-
-`# ./kde.sh`
+Most of the things are automated except for deb & appImage packages which should be downloaded manually from the respective site.
 
 ## Fonts
 
@@ -33,7 +37,9 @@ Sorted by preference
 
 - Delete `.config/user-dirs.dirs` if you don't know what you're doing!
 
-## Make ntfs drive writeable on macOS
+# MacOS extras
+
+## Make ntfs drive writeable
 
 `brew tap gromgit/homebrew-fuse`
 `brew install ntfs-3g-mac`

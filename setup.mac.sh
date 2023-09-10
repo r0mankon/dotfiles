@@ -19,6 +19,7 @@ cp ./.yarnrc.yml ~/.yarnrc.yml
 cp ./.p10k.zsh ~/.p10k.zsh
 
 cat ./.profile >> ~/.zprofile
+echo 'source "$HOME/.dotfiles/env.mac"' >> ~/.zprofile
 # cat ./.profile >> ~/.zshenv
 
 echo "source "$HOME/.dotfiles/.zshrc"" >> ~/.zshrc

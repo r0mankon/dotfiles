@@ -1,6 +1,5 @@
 neovim
 zsh
-exa
 htop
 cmatrix
 neofetch
@@ -18,5 +17,5 @@ libsmbclient
 kodi
 snapd
 appimagelauncher
-mysql-server
 cloudflare-warp
+mysql-server
