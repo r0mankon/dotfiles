@@ -1,4 +1,5 @@
 iterm2
+neovim
 vimr
 alt-tab
 qlcolorcode
@@ -6,7 +7,11 @@ qlimagesize
 maccy
 gh
 onefetch
-fnm
+htop
+cmatrix
+exa
+zoxide
+python-tk
 visual-studio-code
 spotify
 lyricsx

@@ -48,5 +48,9 @@ fnm use
 corepack enable
 corepack prepare yarn@stable --activate
 
+# iterm settings
+defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$HOME/.dotfiles/.config"
+defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+
 # login with new .zprofile
 exec zsh --login
