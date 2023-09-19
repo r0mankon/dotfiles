@@ -107,3 +107,5 @@ load-nvmrc
 
 # alias must at the end, to make sure they're not overridden by anyone else, I'm talking about plugins of course
 source $HOME/.dotfiles/alias
+# at the end
+eval "$(zoxide init zsh)"

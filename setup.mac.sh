@@ -41,11 +41,10 @@ jobs
 qlmanage -r
 brew services restart mysql
 
+# Install NodeJS with nvm
+PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash'
 
-# Install NodeJS with fnm
-fnm completions --shell zsh
-fnm install
-fnm use
+nvm install --lts
 corepack enable
 corepack prepare yarn@stable --activate
 

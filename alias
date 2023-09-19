@@ -16,7 +16,7 @@ auto-ls-ll () {
 }
 
 auto-ls-git () {
-  test -e ".git/" && onefetch --no-palette
+  test -e ".git/" && onefetch --no-color-palette
 }
 
 AUTO_LS_COMMANDS=(ll git)
