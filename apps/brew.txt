@@ -12,6 +12,8 @@ cmatrix
 exa
 zoxide
 python-tk
+veracrypt
+macfuse
 visual-studio-code
 microsoft-edge
 figma
@@ -21,6 +23,7 @@ lyricsx
 postman
 mysql
 standard-notes
+notion
 authy
 cloudflare-warp
 android-studio
