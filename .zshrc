@@ -58,6 +58,8 @@ plugins=(
     emoji-clock
     colored-man-pages
     ssh-agent
+    python
+    pipenv
 )
 
 source $ZSH/oh-my-zsh.sh

@@ -39,6 +39,7 @@ xargs --verbose --arg-file apps/port.txt sudo port install -y &
 jobs
 
 qlmanage -r
+sudo brew services start asimov
 brew services restart mysql
 
 # Install NodeJS with nvm

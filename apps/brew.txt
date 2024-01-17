@@ -14,6 +14,7 @@ zoxide
 python-tk
 veracrypt
 macfuse
+asimov
 visual-studio-code
 microsoft-edge
 figma
