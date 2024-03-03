@@ -40,6 +40,8 @@ nvm install --lts
 corepack enable
 corepack prepare yarn@stable --activate
 
+yarn global add neovim
+
 # Install lastversion with python3-pip
 pip install lastversion
 

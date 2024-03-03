@@ -11,12 +11,20 @@ alias vim='nvim'
 alias cal='gcal --starting-day=1'
 alias weather='curl v2.wttr.in'
 
-auto-ls-ll () {
+auto-ls-ll() {
     ll
 }
 
-auto-ls-git () {
+auto-ls-git() {
   test -e ".git/" && onefetch --no-color-palette
 }
 
 AUTO_LS_COMMANDS=(ll git)
+
+code() {
+  open -a "Visual Studio Code" "$@"
+}
+
+arc() {
+  open -a "Arc" "$@"
+}

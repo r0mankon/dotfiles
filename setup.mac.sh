@@ -49,6 +49,8 @@ nvm install --lts
 corepack enable
 corepack prepare yarn@stable --activate
 
+yarn global add neovim
+
 # iterm settings
 defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$HOME/.dotfiles/.config"
 defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
