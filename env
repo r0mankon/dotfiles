@@ -1,5 +1,6 @@
 export PATH="$PATH:$HOME/.local/bin"
-export PATH=$PATH:$HOME/bin/**/bin
+export PATH="$PATH:$HOME/bin/**/bin"
+export PATH="$PATH:$HOME/.bin/**/bin"
 
 export ANDROID_HOME=/Users/$USER/Library/Android/sdk
 export JAVA_HOME=$ANDROID_HOME/cmdline-tools/latest/bin

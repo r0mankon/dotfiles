@@ -1,5 +1,4 @@
 iterm2
-neovim
 vimr
 alt-tab
 qlcolorcode

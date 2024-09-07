@@ -32,6 +32,9 @@ echo "source ~/.dotfiles/nvim/init.vim" > ~/.config/nvim/init.vim
 
 source ~/.zprofile
 
+# Install neovim from source
+brew install --HEAD neovim
+
 # Install all apps and packages
 xargs --verbose --arg-file apps/brew.txt brew install -y &
 xargs --verbose --arg-file apps/port.txt sudo port install -y &
@@ -49,7 +52,8 @@ nvm install --lts
 corepack enable
 corepack prepare yarn@stable --activate
 
-yarn global add neovim
+#What?
+#yarn global add neovim
 
 # iterm settings
 defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$HOME/.dotfiles/.config"
