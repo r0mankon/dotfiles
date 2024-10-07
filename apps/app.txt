@@ -9,7 +9,6 @@ Slack
 Messenger
 Whatsapp
 Telegram
-Microsoft Todo
 Pocket
 Blackmagic Disk Speed Test
 Boom2

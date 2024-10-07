@@ -3,13 +3,13 @@ vimr
 alt-tab
 qlcolorcode
 qlimagesize
-maccy
 gh
 onefetch
 htop
 cmatrix
 exa
 zoxide
+mos
 python-tk
 veracrypt
 macfuse
@@ -24,9 +24,7 @@ postman
 mysql
 standard-notes
 notion
-authy
 cloudflare-warp
-android-studio
 time-out
 gifski
 anydesk
