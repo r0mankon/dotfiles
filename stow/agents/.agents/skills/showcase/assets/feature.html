@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1024px; height: 500px; overflow: hidden; }
+
+  body {
+    background:
+      radial-gradient(90% 140% at 18% 0%, rgba(139,124,255,0.34), transparent 62%),
+      radial-gradient(70% 120% at 92% 100%, rgba(56,189,248,0.26), transparent 60%),
+      #0b0f19;
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* Play crops the feature graphic on some surfaces — keep everything that
+       matters inside a generous safe area rather than bleeding to the edges. */
+    padding: 0 88px;
+  }
+
+  .stars { position: absolute; inset: 0; pointer-events: none; }
+  .stars i { position: absolute; border-radius: 50%; background: #fff; }
+
+  .copy { position: relative; z-index: 2; max-width: 500px; }
+
+  .wordmark {
+    font-size: 40px; font-weight: 800; letter-spacing: -0.01em;
+    color: #fff; margin-bottom: 26px;
+  }
+  .wordmark .four { color: #a78bfa; }
+
+  h1 {
+    font-size: 52px; font-weight: 700; line-height: 1.08;
+    letter-spacing: 0.004em; color: #fff;
+  }
+  h1 .accent {
+    background: linear-gradient(100deg, #a78bfa, #38bdf8);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  p {
+    margin-top: 22px;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 21px; font-weight: 400; line-height: 1.45;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* A single tilted handset on the right, cropped by the canvas edge. */
+  .phone {
+    position: absolute; right: 58px; top: 50%;
+    width: 272px; padding: 8px;
+    transform: translateY(-50%) rotate(-8deg);
+    border-radius: 40px;
+    background: linear-gradient(160deg, #3b4252, #12151f 45%, #2a2f3d);
+    box-shadow: 0 40px 90px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06) inset;
+    z-index: 2;
+  }
+  .phone .screen {
+    width: 100%; aspect-ratio: 390 / 844;
+    border-radius: 33px; overflow: hidden; background: #0b0f19;
+  }
+  .phone .screen img { width: 100%; display: block; }
+</style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+
+  <div class="copy">
+    <div class="wordmark">say<span class="four">4</span>real</div>
+    <h1>Your link in bio, with a <span class="accent">real anonymous inbox</span>.</h1>
+    <p>Read every message free. Reply, and keep the conversation going.</p>
+  </div>
+
+  <div class="phone"><div class="screen"><img id="shot" alt=""></div></div>
+
+<script>
+  const s = document.getElementById('stars');
+  let seed = 11;
+  const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+  for (let i = 0; i < 46; i++) {
+    const el = document.createElement('i');
+    el.style.left = (rnd() * 100) + '%';
+    el.style.top = (rnd() * 100) + '%';
+    el.style.opacity = String(0.16 + rnd() * 0.45);
+    const sz = rnd() < 0.18 ? 3 : 2;
+    el.style.width = el.style.height = sz + 'px';
+    s.appendChild(el);
+  }
+  document.getElementById('shot').src = new URLSearchParams(location.search).get('img') || '';
+</script>
+</body>
+</html>

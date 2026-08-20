@@ -1,9 +1,32 @@
 ---
 name: tdd
-description: Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions "red-green-refactor", wants integration tests, or asks for test-first development.
+description: Test-driven development SCOPED to pure logic + tricky/security bug fixes (not UI, route glue, or third-party wiring). Red-green-refactor via vertical slices. Use when building or fixing behavior that's exercisable through a public interface without mocking framework/third-party internals, or when reproducing a subtle bug test-first. For UI/integration, verify with real feedback (build/curl/screenshot) instead.
 ---
 
 # Test-Driven Development
+
+## When TDD applies here (scope + efficiency)
+
+TDD is a scalpel, not a gate. It pays for itself on **pure logic behind a small interface** and on **reproducing a subtle bug** — and it *costs* velocity when forced onto UI, glue, and third-party wiring. Scope it deliberately; don't let red-green ceremony slow a task that is mostly not TDD-shaped.
+
+**Test-first (do TDD):**
+
+- **Pure / deep modules with injected effects** — moderation/policy rules, redaction, parsing, rate-limit math, grouping/threading keys, dispatch decisions, token sign/verify. Small interface, real logic, no framework in the way → tests read as specs and survive refactors.
+- **Subtle logic or security branches** — before fixing, write the failing test that *reproduces* the bug through the public interface, then fix. The test proves the bug existed and guards the fix.
+
+**Don't TDD (verify another way):**
+
+- **UI / components / styling** — verify by rendering / screenshot.
+- **API-route glue** (auth + DB + side effects) — verify with a real request (curl) against a running server.
+- **Third-party integration** (payment/auth/push SDKs, framework SSR/caching/build) — verify against the real thing (build, smoke-test, a live call). A mock of Stripe / an auth lib / the framework tests the *shape*, not the behavior — and the bugs live in the seams the mock can't see.
+- **Config** — verify by build.
+
+**The gate — ask before writing a test:** _Can I exercise this behavior through a public interface without mocking framework or third-party internals?_
+
+- **Yes** → TDD it, vertically (one test → one implementation).
+- **No** → don't force a unit test. Verify with the real feedback loop (curl / build / smoke / screenshot), note what you verified and how, and move on.
+
+**Efficiency rule:** the cost of writing the test first must be repaid by catching a *real* regression. If the value of the code lives in wiring a unit test can't observe, the honest, faster move is a real-world check — not a mock that passes while the integration breaks. If most of a task is the "don't TDD" kind, reach for TDD only on the pure-logic slices inside it.
 
 ## Philosophy
 
@@ -48,6 +71,7 @@ When exploring the codebase, use the project's domain glossary so that test name
 
 Before writing any code:
 
+- [ ] **Pass the gate**: this behavior is exercisable through a public interface without mocking framework/third-party internals. If not → verify it another way (build/curl/screenshot), don't TDD it.
 - [ ] Confirm with user what interface changes are needed
 - [ ] Confirm with user which behaviors to test (prioritize)
 - [ ] Identify opportunities for [deep modules](deep-modules.md) (small interface, deep implementation)

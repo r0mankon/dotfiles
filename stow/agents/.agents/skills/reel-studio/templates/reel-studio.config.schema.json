@@ -1,0 +1,122 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "reel-studio.config.schema.json",
+   "title": "reel-studio project profile",
+   "description": "Everything reel-studio needs to know about ONE product: where it runs, how to get in, how it looks, and what may never be claimed about it. Lives at <project>/reel-studio.config.json (keep it out of git if sessionJson holds a live cookie).",
+   "type": "object",
+   "additionalProperties": false,
+   "required": ["baseUrl", "brand", "neverClaim", "outputDir"],
+   "properties": {
+      "$schema": { "type": "string" },
+
+      "baseUrl": {
+         "type": "string",
+         "format": "uri",
+         "description": "Origin the plates are shot against, e.g. http://localhost:3001. Must be a PRODUCTION build (dev overlays end up in shot). Port must match whatever the app bakes in at build time."
+      },
+      "prodStartCommand": {
+         "type": "string",
+         "description": "Shell command that serves the production build on baseUrl, e.g. 'pnpm build && pnpm exec next start --port 3001'. Run by the agent only when healthPath does not answer."
+      },
+      "healthPath": {
+         "type": "string",
+         "default": "/",
+         "description": "Path probed (GET, expects 2xx/3xx) before shooting. Used to decide whether prodStartCommand must run."
+      },
+
+      "auth": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": ["mode"],
+         "description": "How authenticated plates (dashboards, settings drawers) get a session. The cookie is set first-party on baseUrl before navigation — this is one reason plates exist instead of iframes.",
+         "properties": {
+            "mode": { "type": "string", "enum": ["none", "session"] },
+            "cookieName": {
+               "type": "string",
+               "description": "Session cookie name, e.g. better-auth.session_token. Required when mode = session."
+            },
+            "sessionJson": {
+               "type": "string",
+               "description": "Path (relative to the profile) to a JSON file { name, value, handle? } holding a signed session cookie. Mint it from a seeded demo user, never the owner's real session. Required when mode = session."
+            }
+         },
+         "if": { "properties": { "mode": { "const": "session" } } },
+         "then": { "required": ["cookieName", "sessionJson"] }
+      },
+
+      "chromePath": {
+         "type": "string",
+         "description": "Absolute path to a Chrome/Chromium binary for the plate recorder (puppeteer-core). Remotion downloads its own headless shell and ignores this."
+      },
+
+      "brand": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": ["name", "domain", "accent", "surface"],
+         "properties": {
+            "name": { "type": "string", "description": "Product name as shown on screen." },
+            "domain": { "type": "string", "description": "Bare domain used in CTAs and captions, e.g. example.com. No scheme." },
+            "logoPath": { "type": "string", "description": "SVG/PNG logo path, relative to the profile. Copied into the Remotion public/ dir at setup." },
+            "fontDisplay": { "type": "string", "description": "@remotion/google-fonts family for headlines, in subpath form, e.g. BricolageGrotesque. Must be a weight the app actually ships." },
+            "fontBody": { "type": "string", "description": "@remotion/google-fonts family for captions and chips, e.g. PlusJakartaSans." },
+            "accent": { "type": "string", "pattern": "^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$" },
+            "accent2": { "type": "string", "pattern": "^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$", "description": "Second gradient stop. Defaults to accent." },
+            "surface": { "type": "string", "pattern": "^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$", "description": "Scene background behind the phone mock." },
+            "radius": { "type": "number", "minimum": 0, "description": "Card/chip corner radius in px at 1080 wide." }
+         }
+      },
+
+      "neverClaim": {
+         "type": "array",
+         "items": { "type": "string", "minLength": 1 },
+         "description": "Claims that must NEVER appear on screen, in captions or in ad copy. Copied verbatim into CAPTIONS.md 'Never say' and checked against every hook/beat before render."
+      },
+      "alwaysSay": {
+         "type": "array",
+         "items": { "type": "string", "minLength": 1 },
+         "default": [],
+         "description": "Approved phrasings for sensitive facts (the honest version of each neverClaim). Prefer these over paraphrase."
+      },
+
+      "tiers": {
+         "type": "array",
+         "default": [],
+         "description": "What each plan actually includes. A reel may only attribute a feature to the tier that ships it.",
+         "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "includes"],
+            "properties": {
+               "name": { "type": "string" },
+               "includes": { "type": "array", "items": { "type": "string" } }
+            }
+         }
+      },
+
+      "seed": {
+         "type": "object",
+         "additionalProperties": false,
+         "description": "How to populate the LOCAL database so the UI shows something worth filming. Must be idempotent; the agent re-runs it often.",
+         "properties": {
+            "command": { "type": "string", "description": "e.g. 'pnpm tsx NOGIT/seed-demo.ts'" },
+            "notes": { "type": "string", "description": "Gotchas: encryption keys to preserve across re-seeds, caches to bust, FK rows to wipe first." }
+         }
+      },
+
+      "outputDir": {
+         "type": "string",
+         "description": "Gitignored directory for plates, renders, covers, sheets and CAPTIONS.md, e.g. NOGIT/reels."
+      },
+
+      "personas": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": ["allowed"],
+         "description": "Whether fictional people may appear in reels. When allowed, every persona is seeded demo data and is labelled as fictional in CAPTIONS.md — never 'a real user'.",
+         "properties": {
+            "allowed": { "type": "boolean" },
+            "note": { "type": "string", "description": "Constraints: names to reuse from the landing page, identities that must never be shown, avatar source." }
+         }
+      }
+   }
+}

@@ -7,6 +7,10 @@ mouse-scroll-multiplier = 3
 # --- Font Settings ---
 # Extracted from: "MesloLGS-NF-Regular 16"
 font-family = "MesloLGS NF"
+# Bangla fallback + hard-map the Bengali Unicode block (U+0980-09FF) so
+# Bangla never renders through a font without Bengali shaping tables.
+font-family = "Kohinoor Bangla"
+font-codepoint-map = U+0980-U+09FF=Kohinoor Bangla
 font-size = 16
 font-style = Regular
 

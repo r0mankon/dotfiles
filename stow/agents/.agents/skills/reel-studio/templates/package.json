@@ -1,0 +1,33 @@
+{
+   "name": "reel-studio-project",
+   "private": true,
+   "type": "module",
+   "scripts": {
+      "init": "test -f src/reels.json || cp src/reels.example.json src/reels.json",
+      "plate": "node scripts/plate.mjs",
+      "render": "node scripts/render.mjs",
+      "qa": "node scripts/qa.mjs",
+      "sheet": "node scripts/sheet.mjs",
+      "studio": "remotion studio",
+      "typecheck": "tsc --noEmit"
+   },
+   "dependencies": {
+      "@remotion/bundler": "^4.0.513",
+      "@remotion/captions": "^4.0.513",
+      "@remotion/cli": "^4.0.513",
+      "@remotion/google-fonts": "^4.0.513",
+      "@remotion/layout-utils": "^4.0.513",
+      "@remotion/media": "^4.0.513",
+      "@remotion/motion-blur": "^4.0.513",
+      "@remotion/renderer": "^4.0.513",
+      "@remotion/transitions": "^4.0.513",
+      "puppeteer-core": "^24",
+      "react": "^19",
+      "react-dom": "^19",
+      "remotion": "^4.0.513"
+   },
+   "devDependencies": {
+      "@types/react": "^19",
+      "typescript": "^5"
+   }
+}

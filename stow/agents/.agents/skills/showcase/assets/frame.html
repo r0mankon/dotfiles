@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  /* The app's own pairing: Bricolage Grotesque for display, Plus Jakarta Sans
+     for body — same as layout.tsx (--font-display / --font-sans). */
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { width: 1080px; height: 1920px; overflow: hidden; }
+
+  body {
+    background:
+      radial-gradient(120% 70% at 50% -10%, color-mix(in srgb, var(--a1, #8b7cff) 30%, transparent), transparent 60%),
+      radial-gradient(90% 55% at 85% 110%, color-mix(in srgb, var(--a2, #38bdf8) 20%, transparent), transparent 60%),
+      var(--bg, #0b0f19);
+    font-family: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  /* Subtle starfield so the canvas matches the profile's own backdrop. */
+  .stars { position: absolute; inset: 0; pointer-events: none; }
+  .stars i {
+    position: absolute; border-radius: 50%; background: #fff;
+    width: 2px; height: 2px;
+  }
+
+  /* Fixed-height copy band. The phone used to sit in normal flow after the
+     headline, so a one-line headline lifted it and a two-line one pushed it
+     down — the device moved between screenshots in the listing. Reserving the
+     band keeps the phone's top edge identical on every frame. */
+  .copy {
+    margin-top: 96px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .headline {
+    width: 900px;
+    text-align: center;
+    /* 800 at -0.03em read as one squeezed block. 700 with open tracking and a
+       bit more leading is far easier to scan at store-thumbnail size. */
+    font-weight: 700;
+    font-size: 80px;
+    line-height: 1.08;
+    letter-spacing: 0.004em;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+  }
+  .headline .accent {
+    background: linear-gradient(100deg, var(--a1, #a78bfa), var(--a2, #38bdf8));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .sub {
+    margin-top: 26px;
+    width: 820px;
+    text-align: center;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.58);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Device frame — a plain modern handset, no brand marks. */
+  .phone {
+    margin-top: 74px;
+    width: 620px;
+    /* Height follows the screen, which follows the capture's aspect ratio — a
+       fixed height cropped the bottom of every shot (the nav bar in 02). */
+    border-radius: 68px;
+    padding: 14px;
+    background: linear-gradient(160deg, #3b4252, #12151f 45%, #2a2f3d);
+    box-shadow:
+      0 60px 120px rgba(0,0,0,0.55),
+      0 0 0 1px rgba(255,255,255,0.06) inset;
+    position: relative;
+    z-index: 2;
+  }
+  .screen {
+    width: 100%;
+    aspect-ratio: 390 / 844; /* the capture viewport — keep in sync with it */
+    border-radius: 55px;
+    overflow: hidden;
+    background: #0b0f19;
+    position: relative;
+  }
+  .screen img { width: 100%; display: block; }
+
+</style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="copy">
+    <div class="headline" id="headline"></div>
+    <div class="sub" id="sub"></div>
+  </div>
+  <div class="phone">
+    <div class="screen"><img id="shot" alt=""></div>
+  </div>
+
+<script>
+  // Deterministic star scatter — no Math.random so re-renders are identical.
+  const s = document.getElementById('stars');
+  let seed = 7;
+  const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+  for (let i = 0; i < 70; i++) {
+    const el = document.createElement('i');
+    el.style.left = (rnd() * 100) + '%';
+    el.style.top = (rnd() * 62) + '%';
+    el.style.opacity = String(0.18 + rnd() * 0.5);
+    const sz = rnd() < 0.15 ? 3 : 2;
+    el.style.width = el.style.height = sz + 'px';
+    s.appendChild(el);
+  }
+
+  const p = new URLSearchParams(location.search);
+  // Brand knobs — override per project: ?bg=0b0f19&a1=8b7cff&a2=38bdf8
+  const root = document.documentElement.style;
+  root.setProperty('--bg', '#' + (p.get('bg') || '0b0f19'));
+  root.setProperty('--a1', '#' + (p.get('a1') || '8b7cff'));
+  root.setProperty('--a2', '#' + (p.get('a2') || '38bdf8'));
+  document.getElementById('shot').src = p.get('img') || '';
+  document.getElementById('headline').innerHTML = p.get('h') || '';
+  document.getElementById('sub').textContent = p.get('s') || '';
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{
+   "$schema": "./reel-studio.config.schema.json",
+   "baseUrl": "http://localhost:3001",
+   "prodStartCommand": "pnpm build && pnpm exec next start --port 3001",
+   "healthPath": "/",
+   "auth": {
+      "mode": "session",
+      "cookieName": "app.session_token",
+      "sessionJson": "NOGIT/reels/session.json"
+   },
+   "chromePath": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+   "brand": {
+      "name": "Acme",
+      "domain": "acme.example",
+      "logoPath": "public/logo.svg",
+      "fontDisplay": "BricolageGrotesque",
+      "fontBody": "PlusJakartaSans",
+      "accent": "#FF7A59",
+      "accent2": "#FFB347",
+      "surface": "#0B0B0F",
+      "radius": 28
+   },
+   "neverClaim": [
+      "that the product can do X it does not ship",
+      "that a paid tier unlocks something the table below does not list"
+   ],
+   "alwaysSay": [
+      "free to start",
+      "no account needed to send"
+   ],
+   "tiers": [
+      { "name": "Free", "includes": ["core inbox", "public page", "links"] },
+      { "name": "Pro", "includes": ["themes", "icon packs"] },
+      { "name": "Team", "includes": ["analytics map", "email digests"] }
+   ],
+   "seed": {
+      "command": "pnpm tsx NOGIT/seed-demo.ts",
+      "notes": "Idempotent. Wipe analytics/session rows before the demo user; keep per-user keys across re-seeds."
+   },
+   "outputDir": "NOGIT/reels",
+   "personas": {
+      "allowed": true,
+      "note": "Reuse the landing-page demo persona; never film the owner's real account."
+   }
+}

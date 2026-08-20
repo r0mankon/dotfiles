@@ -1,0 +1,86 @@
+[
+   {
+      "id": "hook-send",
+      "grammar": "through",
+      "opener": "snap",
+      "brand": {
+         "name": "acmeboard",
+         "wordmark": ["acme", "board"],
+         "logo": "brand/logo.png",
+         "accent": "#73d0ff",
+         "accent2": "#a78bfa",
+         "surface": "#0d1117",
+         "font": { "display": "BricolageGrotesque", "body": "PlusJakartaSans" }
+      },
+      "hook": {
+         "kicker": "for makers",
+         "lines": ["The feedback you never hear is the feedback that *matters*."]
+      },
+      "beats": [
+         {
+            "kind": "plate",
+            "plate": { "name": "type-a-message", "frames": 128 },
+            "plateOffset": 1.6,
+            "seconds": 4.6,
+            "captions": [
+               { "at": 0.6, "text": "so give people a place to say it" },
+               { "at": 2.8, "text": "no name, no email, no account" }
+            ]
+         },
+         {
+            "kind": "lock",
+            "pushTitle": "acmeboard",
+            "pushBody": "New feedback on your board",
+            "time": "9:41",
+            "date": "Wednesday, 20 August",
+            "caption": "it lands where you already are",
+            "seconds": 3.2
+         }
+      ],
+      "cta": {
+         "sub": "Honest feedback, on your own page.",
+         "pill": "Claim your board →",
+         "domain": "acmeboard.com"
+      }
+   },
+   {
+      "id": "dashboard-tour",
+      "grammar": "jump",
+      "opener": "bloom",
+      "brand": {
+         "name": "acmeboard",
+         "wordmark": ["acme", "board"],
+         "logo": "brand/logo.png",
+         "accent": "#73d0ff",
+         "accent2": "#a78bfa",
+         "surface": "#0d1117",
+         "font": { "display": "BricolageGrotesque", "body": "PlusJakartaSans" }
+      },
+      "hook": {
+         "lines": ["Your dashboard told you *nothing*.", "Until now."]
+      },
+      "beats": [
+         {
+            "kind": "plate",
+            "plate": { "name": "dashboard-scroll", "frames": 210 },
+            "plateOffset": 0.8,
+            "seconds": 5,
+            "captions": [
+               { "at": 0.5, "text": "every signal, one screen" },
+               { "at": 2.9, "text": "which page, which hour, which link" }
+            ]
+         },
+         {
+            "kind": "chips",
+            "kicker": "on every plan",
+            "items": ["live updates", "export anything", "your own domain"],
+            "seconds": 3
+         }
+      ],
+      "cta": {
+         "sub": "Stop guessing what your users do.",
+         "pill": "See your board →",
+         "domain": "acmeboard.com"
+      }
+   }
+]

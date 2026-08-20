@@ -139,7 +139,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "input=$(cat); msg=$(echo \"$input\" | jq -r '.message // empty'); ws=$(echo \"$input\" | jq -r '.cwd // empty' | xargs -I{} basename {}); clean=$(echo \"$msg\" | sed -E 's/^[Cc]laude[[:space:]]+//'); [ -n \"$msg\" ] && { afplay /System/Library/Sounds/Glass.aiff & say \"$ws: $clean\" & terminal-notifier -title \"$ws\" -message \"$clean\" -group claude-pause -ignoreDoNotDisturb; } 2>/dev/null || true",
+            "command": "( input=$(cat); msg=$(echo \"$input\" | jq -r '.message // empty' 2>/dev/null); ws=$(echo \"$input\" | jq -r '.cwd // empty' 2>/dev/null | xargs -I{} basename {} 2>/dev/null); clean=$(echo \"$msg\" | sed -E 's/^[Cc]laude[[:space:]]+//' 2>/dev/null); [ -n \"$msg\" ] && { afplay /System/Library/Sounds/Glass.aiff </dev/null >/dev/null 2>&1 & say \"$ws: $clean\" </dev/null >/dev/null 2>&1 & terminal-notifier -title \"$ws\" -message \"$clean\" -group claude-pause -ignoreDoNotDisturb </dev/null >/dev/null 2>&1; }; true ) </dev/null >/dev/null 2>&1 & disown",
             "async": true
           }
         ]

@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; }
+
+  body {
+    background:
+      radial-gradient(120% 70% at 50% -10%, rgba(139,124,255,0.30), transparent 60%),
+      radial-gradient(90% 55% at 85% 110%, rgba(56,189,248,0.20), transparent 60%),
+      #0b0f19;
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    position: relative;
+  }
+
+  .stars { position: absolute; inset: 0; pointer-events: none; }
+  .stars i { position: absolute; border-radius: 50%; background: #fff; width: 2px; height: 2px; }
+
+  .headline {
+    margin: 96px auto 0; width: 940px; text-align: center;
+    font-weight: 700; font-size: 80px; line-height: 1.08;
+    letter-spacing: 0.004em; color: #fff; position: relative; z-index: 3;
+  }
+  .headline .accent {
+    background: linear-gradient(100deg, #a78bfa, #38bdf8);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub {
+    margin: 26px auto 0; width: 820px; text-align: center;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 32px; font-weight: 400; line-height: 1.4;
+    color: rgba(255,255,255,0.58); position: relative; z-index: 3;
+  }
+
+  /* Mosaic: a staggered grid of theme tiles. Each tile is the top of a real
+     profile — avatar, name, bio — which is where a theme's material actually
+     shows. Columns are offset vertically and the outer ones run past the canvas
+     edge, so the block reads as a swatch wall rather than six screenshots. */
+  .mosaic {
+    position: absolute; left: 50%; top: 560px;
+    transform: translateX(-50%);
+    width: 1320px;             /* wider than the canvas — outer tiles bleed */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    z-index: 2;
+  }
+  .col { display: flex; flex-direction: column; gap: 30px; }
+  .col.mid { margin-bottom: -260px; }
+  .col:nth-child(1) { margin-top: 90px; }
+  .col:nth-child(3) { margin-top: 150px; }
+
+  .tile {
+    border-radius: 34px;
+    overflow: hidden;
+    background: #0b0f19;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07);
+  }
+  .tile img { width: 100%; display: block; }
+
+  /* Centre column. Every tile keeps its source's natural aspect — an earlier
+     pass forced fixed heights with object-fit:cover, which filled the height
+     and sliced the sides off Rocky and Crayon. The crop is chosen at CAPTURE
+     time instead: Rocky is shot tall (765px) for presence, Crayon short (470px)
+     so it ends right under the message box. 560 top + 824 + 30 gap + 506 lands
+     Crayon exactly on the canvas floor. */
+  .tile.bleed-bottom {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: 0 -30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07);
+  }
+
+  /* Fade the mosaic into the background at the bottom edge instead of cutting
+     it with a hard line. */
+  .fade {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 240px;
+    background: linear-gradient(to top, #0b0f19 10%, rgba(11,15,25,0));
+    z-index: 1; pointer-events: none;
+  }
+</style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="headline" id="headline"></div>
+  <div class="sub" id="sub"></div>
+
+  <div class="mosaic">
+    <div class="col">
+      <div class="tile"><img id="i0" alt=""></div>
+      <div class="tile"><img id="i3" alt=""></div>
+    </div>
+    <div class="col mid">
+      <div class="tile"><img id="i1" alt=""></div>
+      <div class="tile bleed-bottom"><img id="i4" alt=""></div>
+    </div>
+    <div class="col">
+      <div class="tile"><img id="i2" alt=""></div>
+      <div class="tile"><img id="i5" alt=""></div>
+    </div>
+  </div>
+
+  <div class="fade"></div>
+
+<script>
+  const s = document.getElementById('stars');
+  let seed = 7;
+  const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+  for (let i = 0; i < 60; i++) {
+    const el = document.createElement('i');
+    el.style.left = (rnd() * 100) + '%';
+    el.style.top = (rnd() * 45) + '%';
+    el.style.opacity = String(0.18 + rnd() * 0.5);
+    const sz = rnd() < 0.15 ? 3 : 2;
+    el.style.width = el.style.height = sz + 'px';
+    s.appendChild(el);
+  }
+
+  const p = new URLSearchParams(location.search);
+  (p.get('imgs') || '').split(',').forEach((src, i) => {
+    const el = document.getElementById('i' + i);
+    if (el && src) el.src = src;
+  });
+  document.getElementById('headline').innerHTML = p.get('h') || '';
+  document.getElementById('sub').textContent = p.get('s') || '';
+</script>
+</body>
+</html>

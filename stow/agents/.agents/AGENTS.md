@@ -2,11 +2,18 @@
 - 
 
 - Prefer self-documenting code over comments
-- But you must also write verbose comments for AI collaboration with `@ AI Context: ` prefix. This will help both me and you to understand the code and iterate just reading the comments instead of the understanding the whole codebase. This comments must be stipped out with a separate tool called `strip-verbose-reasoning-comments` or "strip out verbose comments" phrase.
+- But you must also write verbose comments for AI collaboration with `@ AI Context: ` prefix. This will help both me and you to understand the code and iterate just reading the comments instead of the understanding the whole codebase. This comments cant be stipped out with a separate tool called `strip-verbose-reasoning-comments` or "strip out verbose comments" phrase. But shouldn't be deleted most of the time and should summerize if they're raw reasoning back and forth comments befor the final decision.
 
 - Feel free to ask many questions. If you are in doubt of my intent, don't guess. Ask.
 - Try to ask questions with your recommeded answers as options. Would prefer interactive QA prompt instead of plain text answer.
-- You never commit anything unless I specifically instruct you otherwise.
+- You can commit yourself but must follow this rule:
+  You will commit before each phase not after. You'll understand my prompt and decide whether its a follow-up and
+  should be in one commit or it disconnected and need to commit the previous work first and continue working on that prompt and
+  wait for the next prompt before commiting that round.
+
+  Though even if a follow-up prompt/task/discussion feel connected but bigger, then you should commit the previous work and treat the current as separate phase.
+
+  You shouldn't start commiting unless its a running project, a newly initialized repo and we're gonna throw bunch of ideas/work before the mvp or first/second real commit.
 
 - Delete/Remove: `trash` with no args instead of `rm`
 - Search: `rg` instead of `grep`
@@ -158,7 +165,7 @@ function Button(props: Props) {
 - **Complex Global State**: Use Zustand with Immer middleware when starting new projects only if necessary
 
 ## API
-- use fetchResult(), a fetch wrapper that returns data or error as [data, error]
+- use fetchResult(), a fetch wrapper that returns data or error as { data, error } (discriminated union, findme style)
 - create one for new projects if doesn't exist
 
 ## Workflow
@@ -282,6 +289,42 @@ import { useEffect } from 'react';
 - Never install or build anything that requires x86_64 arch
 - When visiting a url, check for markdown version by attaching `.md` at the end of the path, otherwise use token efficient method to read a webpage
 - Always prefer color text-primary, text-secondary etc over explicit similar color like text-gray-500
+
+# Subagents, Fan-out & Token Cost
+
+Measured 2026-08-19: one 23-agent Opus 5 fan-out burned 183.6M tokens in ~20
+minutes. Output was 0.5M of that (0.3%) — the other 99% was cache reads, i.e.
+the same context replayed on every turn of every agent. Cost scales with
+`context size x turns x agents`, not with how much the agents write.
+
+## Model tier
+- Big fan-outs (3+ parallel agents) run on **Sonnet** by default. Only use a
+  premium tier — Opus, Fable, or anything Mythos-class — for a fleet when I
+  explicitly ask for it.
+- The parent (or another higher-tier model) **must verify** what the fleet
+  returns. Cheap agents find and draft; the expensive model checks, resolves
+  conflicts, and decides. Never ship a fleet's output unverified.
+- Single deep-reasoning tasks may stay on the higher tier — the rule targets
+  breadth, not depth.
+
+## Fleet size
+- **10-15 concurrent agents maximum.** If the work needs more, batch it in
+  waves and summarize between waves.
+- Prefer pipelines (each item flows through its stages independently) over
+  barriers that hold every agent open waiting for the slowest one.
+
+## Caching / context discipline
+- Keep each subagent's prompt narrow. A smaller starting context is multiplied
+  by every turn that agent takes, so trimming it pays three ways at once.
+- Delegate searching, keep the conclusion. Never let a subagent's raw file
+  dumps land in the main thread — ask for `file:line` refs and findings.
+- Don't re-derive what's already in context, and don't re-read a file that was
+  just edited to "verify" it.
+- Reuse one warm session rather than restarting: cached context is far cheaper
+  to replay than to rebuild.
+- Cap agent turns by giving a clear stop condition; an agent with a vague task
+  keeps looping over the same expensive context.
+- Long tool output belongs in a file or the scratchpad, not the transcript.
 
 # Revnest Frontend Specific Guidelines Start -
 
